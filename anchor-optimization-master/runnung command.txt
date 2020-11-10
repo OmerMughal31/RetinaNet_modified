@@ -1,0 +1,8 @@
+
+		ORIGINAL
+		
+		python optimize_anchors.py PATH_TO_CSV --ratios=5 --no-resize
+
+		MODIFIED
+	
+		python optimize_anchors.py D:/Study/Masters Data/Masters Thesis/HSU/EfficientDet-master/datasets/train.csv --ratios=5 --no-resize
