@@ -2,14 +2,6 @@ retinanet-train --weights resnet50_coco_best_v2.1.0.h5 --batch_size 1 --steps 49
 
 python keras_retinanet/bin/train.py --weights resnet50_coco_best_v2.1.0.h5 --steps 400 --epochs 20 --snapshot-path snapshots --tensorboard-dir tensorboard csv dataset/train.csv dataset/classes.csv
 
-
-(New Command Docker Container)
-
-python keras_retinanet/bin/train.py --weights resnet50_coco_best_v2.1.0.h5 --snapshot-path snapshots --tensorboard-dir tensorboard --gpu 0 --random-transform --compute-val-loss --batch-size 3 --steps 500 --epochs 150 csv datasets/config_folder/dataset/train.csv datasets/config_folder/dataset/classes.csv --val-annotations datasets/config_folder/dataset/val.csv
-
-
-'--backbone'
-
 (New Command Docker Container)
 
 python keras_retinanet/bin/train.py --backbone 'mobilenet128_0.75' --snapshot-path snapshots --tensorboard-dir tensorboard --gpu 0 --random-transform --compute-val-loss --batch-size 3 --steps 500 --epochs 150 csv datasets/config_folder/dataset/train.csv datasets/config_folder/dataset/classes.csv --val-annotations datasets/config_folder/dataset/val.csv

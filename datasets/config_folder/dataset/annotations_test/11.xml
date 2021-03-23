@@ -1,0 +1,26 @@
+<annotation>
+	<folder>resized_images_(640x640)_new_dataset</folder>
+	<filename>11.jpg</filename>
+	<path>D:\Study\Masters Data\Masters Thesis\HSU\Dataset\Aircrafts\resized_images_(640x640)_new_dataset\11.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>drone</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>182</xmin>
+			<ymin>169</ymin>
+			<xmax>475</xmax>
+			<ymax>350</ymax>
+		</bndbox>
+	</object>
+</annotation>

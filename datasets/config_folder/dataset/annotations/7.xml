@@ -1,0 +1,26 @@
+<annotation>
+	<folder>resized_images_(640x640)_new_dataset</folder>
+	<filename>7.jpg</filename>
+	<path>D:\Study\Masters Data\Masters Thesis\HSU\Dataset\Aircrafts\resized_images_(640x640)_new_dataset\7.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>truck</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>162</xmin>
+			<ymin>39</ymin>
+			<xmax>491</xmax>
+			<ymax>605</ymax>
+		</bndbox>
+	</object>
+</annotation>

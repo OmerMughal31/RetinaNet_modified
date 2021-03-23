@@ -1,5 +1,66 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri April  3 13:30:43 2020
+
+@author: Omer
+"""
+
+"""
+This file has been written to generate the training, testing and validation datasets for EffcienctDet.
+
+
+1- Dataset has been labelled with LabelImg.
+2- Annotation files are in XML format
+3- The outputs are train, test, val and classes files which are CSV files generated from XML format annotations.
+
+Usage:
+    1- Please follow the same director structure to optimally use the code.
+        parent:
+            -datasets
+                --config_folder
+                    --config
+                        --paths_config.py
+                    --annotations
+                    --images
+                    --build_dataset.py
+    
+    2- Configuration of base paths and general directory settings
+        i- There is a director named "config" has been created where a PY file names as "paths_config.py" is given.
+        ii- If you are working in docker container, then
+            a- In path-config file change the "BASE_PATH" variable with the aboslute path of parent directory where this file is created. (actually: "datasets/config_folder/dataset")
+        
+        iii- If you are working with spyder of jupyter notebook in python enviornmrnt, then,
+            a- In path-config file change the "BASE_PATH" variable with the annotation director path. (actually: "dataset")
+            
+            #####
+                However this path management is commented in the config file. If you will be using the same directory arrangements, then, you just need to uncomment the path according to working enviornment. Otherwise, please define the base paths carefully.
+                #####
+        
+    3- Place XML annotation files in folder annoptations
+    4- Place images into images folder
+    5- Output CSV files are present in "dataset" directory. NOT IN "datasets" DIRECTORY
+    
+    6- IMPORTANT
+        i- First generate the train.csv and val.csv by setting the --split argument 0.5/0.8/0.9 whatever the user want. It will generate the train and validation set CSV files. Move the train.csv, val.csv and class.csv to 'protected_folder' directory.
+        ***Please put the annotations of for train and test set only in annotation folder at this time.
+        ***Please put the images of for train and test set only in images folder at this time.
+        
+        ii- To generate the test set, please put a none zero (1.0 always) value for --splittest argument vale while keeping the --split argument 0.0. It will generate the permant test set which is not going to change and independent from the concept that howm many times you gnerate your training and validation annotations.
+        ####
+            Replace the empty generated train.csv, val.csv and classes.csv files with CSV files from 'protected_folder'.
+            ####
+            
+        ***Please put the annotations of for only test set in annotation folder at this time.
+        ***Please put the images of for test set only in images folder at this time.
+        
+        ####
+            This is a kind a limitation of program but this strategy has been followed to keep the test set always similar for every model or version of training, while, changing the train or validation set. So that the evaluation of every model is done on the same test set.
+            
+"""
+
+
 # import the necessary packages
-from config import esri_objectdetector_config as config
+from config import paths_config as config
 from bs4 import BeautifulSoup
 from imutils import paths
 import argparse
@@ -8,6 +69,12 @@ import os
 
 
 class DataPreparationXml:
+
+    """
+    Functions to define the arguments whcih are always initialted whenever the object of the class is created.
+
+    """
+
     def __init__(self):
         # Construct the argument parser and parse the arguments
         ap = argparse.ArgumentParser()
@@ -39,14 +106,17 @@ class DataPreparationXml:
             help="path to output classes CSV file",
         )
         ap.add_argument(
-            "-s", "--split", type=float, default=0.8, help="train and test split"
+            "-s", "--split", type=float, default=0.0, help="train and val split"
         )
         ap.add_argument(
-            "-b", "--splitval", type=float, default=0.0, help="train and test split"
+            "-b", "--splittest", type=float, default=1.0, help="val and test split"
         )
         args = vars(ap.parse_args())
 
         # Create easy variable names for all the arguments
+        # What ever the user will define here,the directory structure should be according to that
+        # Otherwise leave these as these have been defined
+
         self.annot_path = args["annotations"]
         self.images_path = args["images"]
         self.train_csv = args["train"]
@@ -54,9 +124,22 @@ class DataPreparationXml:
         self.test_csv = args["test"]
         self.classes_csv = args["classes"]
         self.train_test_split = args["split"]
-        self.test_val_split = args["splitval"]
+        self.test_val_split = args["splittest"]
         # initialize the set of classes we have
         self.CLASSES = set()
+
+    """
+    This Function manages the test train split by shuffeling the paths and applying split afterwords.
+    
+    Inputs:
+        1- Image paths
+        2- Train Val split ratio (already given through arguments. Please change there.)
+        3- Test val split ratio (already given through arguments. Please change there.)
+    
+    Outputs:
+        Managed dataset
+    
+    """
 
     def test_train_val_splits(
         self,
@@ -83,6 +166,15 @@ class DataPreparationXml:
             ("val", self.valimage_paths, self.val_csv),
         ]
         return self.dataset
+
+    """
+    This function actually writes the train, test and val annotation CSV files
+    
+    Input:
+         Managned data fron the test_train_val_split() function
+    Outputs:
+        None
+    """
 
     def get_annotations(self, data_to_read: list) -> None:
         # loop over the datasets

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>resized_images_(640x640)_new_dataset</folder>
+	<filename>2.jpg</filename>
+	<path>D:\Study\Masters Data\Masters Thesis\HSU\Dataset\Aircrafts\resized_images_(640x640)_new_dataset\2.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>helicopter</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>233</xmin>
+			<ymin>163</ymin>
+			<xmax>431</xmax>
+			<ymax>308</ymax>
+		</bndbox>
+	</object>
+</annotation>
